@@ -66,9 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
   changeVehicleBtn.addEventListener("click", () => {
     vehicleForm.hidden = !vehicleForm.hidden;
     changeVehicleBtn.textContent = vehicleForm.hidden ? "Changer de véhicule" : "Annuler";
-    if (!vehicleForm.hidden) {
-      vehicleForm.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
   });
 
   if (brand && model && year) {
