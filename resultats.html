@@ -24,12 +24,44 @@
   <main>
     <!-- RECAP VEHICULE -->
     <section class="recap-bar">
-      <div class="container recap-inner">
-        <div>
-          <span class="recap-label">Votre véhicule</span>
-          <h1 class="recap-vehicle" id="recap-vehicle">—</h1>
+      <div class="container">
+        <div class="recap-inner">
+          <div>
+            <span class="recap-label">Votre véhicule</span>
+            <h1 class="recap-vehicle" id="recap-vehicle">—</h1>
+          </div>
+          <button type="button" class="btn-secondary" id="change-vehicle-btn">Changer de véhicule</button>
         </div>
-        <a href="index.html" class="btn-secondary">Changer de véhicule</a>
+
+        <form id="vehicle-form" class="change-vehicle-panel" autocomplete="off" hidden>
+          <div class="change-vehicle-grid">
+            <div class="field">
+              <label for="brand-select">Marque</label>
+              <select id="brand-select" required>
+                <option value="" disabled selected>Choisissez une marque</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="model-select">Modèle</label>
+              <select id="model-select" required disabled>
+                <option value="" disabled selected>Choisissez d'abord une marque</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="year-select">Année</label>
+              <select id="year-select" required disabled>
+                <option value="" disabled selected>Choisissez d'abord un modèle</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" id="submit-btn" disabled>
+            Voir les solutions compatibles
+          </button>
+          <p class="form-hint" id="form-hint"></p>
+        </form>
       </div>
     </section>
 
@@ -103,13 +135,14 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; <span id="year"></span> PlayAuto. Comparateur d'autoradios &amp; CarPlay pour tous les véhicules.</p>
+      <p>&copy; <span id="year"></span> PlayAuto. Comparateur CarPlay &amp; Android Auto pour tous les véhicules.</p>
     </div>
   </footer>
 
   <script src="js/data.js"></script>
   <script src="js/compat.js"></script>
   <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
   <script src="js/results.js"></script>
 </body>
 </html>

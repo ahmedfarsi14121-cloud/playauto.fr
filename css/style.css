@@ -394,6 +394,23 @@ section {
   font-size: 1.5rem;
 }
 
+.change-vehicle-panel {
+  margin-top: 20px;
+  padding: 20px;
+  background: var(--color-bg-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.change-vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
 /* ---------- CHOIX (résultats) ---------- */
 .choice-section {
   background: var(--color-bg-light);
@@ -709,6 +726,10 @@ section {
   }
 
   .choice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .change-vehicle-grid {
     grid-template-columns: 1fr;
   }
 

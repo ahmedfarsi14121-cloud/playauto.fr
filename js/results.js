@@ -11,6 +11,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const productsSection = document.getElementById("products-section");
   const errorSection = document.getElementById("error-section");
 
+  // Formulaire "Changer de véhicule" affiché en ligne sur cette page,
+  // pré-rempli avec le véhicule courant (main.js gère les selects en cascade).
+  const changeVehicleBtn = document.getElementById("change-vehicle-btn");
+  const vehicleForm = document.getElementById("vehicle-form");
+
+  changeVehicleBtn.addEventListener("click", () => {
+    vehicleForm.hidden = !vehicleForm.hidden;
+    changeVehicleBtn.textContent = vehicleForm.hidden ? "Changer de véhicule" : "Annuler";
+    if (!vehicleForm.hidden) {
+      vehicleForm.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  });
+
+  if (brand && model && year) {
+    const brandSelectEl = document.getElementById("brand-select");
+    const modelSelectEl = document.getElementById("model-select");
+    const yearSelectEl = document.getElementById("year-select");
+
+    brandSelectEl.value = brand;
+    brandSelectEl.dispatchEvent(new Event("change"));
+    modelSelectEl.value = model;
+    modelSelectEl.dispatchEvent(new Event("change"));
+    yearSelectEl.value = String(year);
+    yearSelectEl.dispatchEvent(new Event("change"));
+  }
+
   if (!brand || !model || !year) {
     choiceSection.hidden = true;
     productsSection.hidden = true;
