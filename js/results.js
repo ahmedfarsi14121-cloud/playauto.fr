@@ -1,3 +1,50 @@
+/**
+ * Photo du tableau de bord : cherche une image fournie par le site pour ce
+ * véhicule avant d'afficher le placeholder. Convention de nommage dans
+ * images/dashboards/ : "{marque}-{modele}-{annee}.jpg" (photo précise pour
+ * cette année) puis, à défaut, "{marque}-{modele}.jpg" (photo générique pour
+ * le modèle, valable tant que la planche de bord n'a pas changé). Il suffit
+ * de déposer un fichier respectant ce nommage pour qu'il apparaisse
+ * automatiquement, sans modification de code.
+ */
+function slugify(str) {
+  return str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function loadDashboardPhoto(brand, model, year) {
+  const imgEl = document.getElementById("dashboard-photo-img");
+  const placeholderEl = document.getElementById("dashboard-photo-placeholder");
+  const brandSlug = slugify(brand);
+  const modelSlug = slugify(model);
+  const candidates = [
+    `images/dashboards/${brandSlug}-${modelSlug}-${year}.jpg`,
+    `images/dashboards/${brandSlug}-${modelSlug}.jpg`
+  ];
+
+  function tryCandidate(index) {
+    if (index >= candidates.length) {
+      imgEl.hidden = true;
+      placeholderEl.hidden = false;
+      return;
+    }
+    const probe = new Image();
+    probe.onload = () => {
+      imgEl.src = candidates[index];
+      imgEl.hidden = false;
+      placeholderEl.hidden = true;
+    };
+    probe.onerror = () => tryCandidate(index + 1);
+    probe.src = candidates[index];
+  }
+
+  tryCandidate(0);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -45,6 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   document.getElementById("recap-vehicle").textContent = `${brand} ${model} (${year})`;
+  loadDashboardPhoto(brand, model, year);
 
   const compat = getFactoryCarplayCompatibility(brand, model, year);
 
