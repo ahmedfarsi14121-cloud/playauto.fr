@@ -273,7 +273,7 @@ section {
 
 .brand-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 16px;
 }
 
@@ -346,10 +346,6 @@ section {
   .feature-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .brand-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 @media (max-width: 560px) {
@@ -364,10 +360,6 @@ section {
   .steps,
   .feature-grid {
     grid-template-columns: 1fr;
-  }
-
-  .brand-grid {
-    grid-template-columns: repeat(2, 1fr);
   }
 
   .main-nav {
