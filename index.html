@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlayAuto – Comparateur d'autoradios & CarPlay</title>
+  <meta name="description" content="Trouvez l'autoradio Android ou CarPlay compatible avec votre véhicule en quelques clics. Sélectionnez votre marque, modèle et année.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">📻</span>
+        <span>Play<strong>Auto</strong></span>
+      </a>
+      <nav class="main-nav">
+        <a href="#comment-ca-marche">Comment ça marche</a>
+        <a href="#marques">Marques</a>
+        <a href="#pourquoi">Pourquoi nous</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO + SELECTEUR -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <h1>Trouvez l'autoradio <span class="accent">parfait</span> pour votre voiture</h1>
+          <p class="hero-subtitle">
+            Comparez les autoradios Android, CarPlay &amp; Android Auto compatibles
+            avec la marque, le modèle et l'année de votre véhicule. Simple, rapide, sans erreur.
+          </p>
+        </div>
+
+        <form id="vehicle-form" class="selector-card" autocomplete="off">
+          <h2 class="selector-title">Trouvez votre autoradio</h2>
+
+          <div class="field">
+            <label for="brand-select">Marque</label>
+            <select id="brand-select" required>
+              <option value="" disabled selected>Choisissez une marque</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="model-select">Modèle</label>
+            <select id="model-select" required disabled>
+              <option value="" disabled selected>Choisissez d'abord une marque</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="year-select">Année</label>
+            <select id="year-select" required disabled>
+              <option value="" disabled selected>Choisissez d'abord un modèle</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-primary" id="submit-btn" disabled>
+            Voir les autoradios compatibles
+          </button>
+          <p class="form-hint" id="form-hint"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- COMMENT CA MARCHE -->
+    <section id="comment-ca-marche" class="how-it-works">
+      <div class="container">
+        <h2 class="section-title">Comment ça marche ?</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Sélectionnez votre véhicule</h3>
+            <p>Indiquez la marque, le modèle et l'année de votre voiture.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Comparez les produits</h3>
+            <p>Découvrez tous les autoradios compatibles : Android, CarPlay, Android Auto.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Choisissez le meilleur</h3>
+            <p>Comparez prix, écran, fonctionnalités et avis pour faire le bon choix.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUES POPULAIRES -->
+    <section id="marques" class="brands">
+      <div class="container">
+        <h2 class="section-title">Marques populaires</h2>
+        <p class="section-subtitle">Cliquez sur une marque pour la présélectionner</p>
+        <div class="brand-grid" id="brand-grid"></div>
+      </div>
+    </section>
+
+    <!-- POURQUOI NOUS -->
+    <section id="pourquoi" class="why-us">
+      <div class="container">
+        <h2 class="section-title">Pourquoi utiliser PlayAuto ?</h2>
+        <div class="feature-grid">
+          <div class="feature">
+            <span class="feature-icon">✅</span>
+            <h3>Compatibilité garantie</h3>
+            <p>Nous n'affichons que les autoradios réellement compatibles avec votre véhicule.</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">⚡</span>
+            <h3>Gain de temps</h3>
+            <p>Plus besoin de fouiller des dizaines de fiches produits : tout est filtré pour vous.</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">💶</span>
+            <h3>Meilleur rapport qualité/prix</h3>
+            <p>Comparez plusieurs marques et modèles pour trouver l'offre la plus avantageuse.</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">🔧</span>
+            <h3>CarPlay & Android Auto</h3>
+            <p>Filtrez selon vos besoins : sans fil, écran tactile, caméra de recul, GPS…</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> PlayAuto. Comparateur d'autoradios & CarPlay pour tous les véhicules.</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

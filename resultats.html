@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Résultats – PlayAuto</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">📻</span>
+        <span>Play<strong>Auto</strong></span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">Accueil</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section style="padding: 96px 0; text-align: center;">
+      <div class="container">
+        <h1>Page des résultats en construction 🚧</h1>
+        <p id="recap" style="color: var(--color-text-light); font-size: 1.1rem; margin-top: 16px;"></p>
+        <p style="color: var(--color-text-light);">
+          La liste des autoradios compatibles pour votre véhicule arrivera bientôt ici.
+        </p>
+        <a href="index.html" class="btn-primary" style="display:inline-block; text-decoration:none; margin-top: 24px;">
+          Retour à l'accueil
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> PlayAuto. Comparateur d'autoradios & CarPlay pour tous les véhicules.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const params = new URLSearchParams(window.location.search);
+    const brand = params.get("brand");
+    const model = params.get("model");
+    const year = params.get("year");
+    if (brand && model && year) {
+      document.getElementById("recap").textContent =
+        `Véhicule sélectionné : ${brand} ${model} (${year})`;
+    }
+  </script>
+</body>
+</html>
