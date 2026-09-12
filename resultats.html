@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Résultats – PlayAuto</title>
+  <meta name="description" content="Comparez les boîtiers CarPlay sans fil et les autoradios Android compatibles avec votre véhicule.">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -21,14 +22,79 @@
   </header>
 
   <main>
-    <section style="padding: 96px 0; text-align: center;">
+    <!-- RECAP VEHICULE -->
+    <section class="recap-bar">
+      <div class="container recap-inner">
+        <div>
+          <span class="recap-label">Votre véhicule</span>
+          <h1 class="recap-vehicle" id="recap-vehicle">—</h1>
+        </div>
+        <a href="index.html" class="btn-secondary">Changer de véhicule</a>
+      </div>
+    </section>
+
+    <!-- ETAPE 1 : CHOIX DE LA SOLUTION -->
+    <section class="choice-section" id="choice-section">
       <div class="container">
-        <h1>Page des résultats en construction 🚧</h1>
-        <p id="recap" style="color: var(--color-text-light); font-size: 1.1rem; margin-top: 16px;"></p>
-        <p style="color: var(--color-text-light);">
-          La liste des autoradios compatibles pour votre véhicule arrivera bientôt ici.
+        <h2 class="section-title">Quelle solution vous convient ?</h2>
+        <p class="section-subtitle">Choisissez comment profiter de CarPlay / Android Auto dans votre véhicule</p>
+
+        <div class="choice-grid">
+          <button type="button" class="choice-card" id="choice-dongle" data-mode="dongle">
+            <span class="choice-icon">🖥️</span>
+            <h3>Garder mon écran d'origine</h3>
+            <p>Ajoutez CarPlay / Android Auto sans fil à votre écran d'origine grâce à un petit boîtier, sans rien changer visuellement.</p>
+            <span class="compat-badge" id="compat-badge">Vérification…</span>
+          </button>
+
+          <button type="button" class="choice-card" id="choice-headunit" data-mode="headunit">
+            <span class="choice-icon">📺</span>
+            <h3>Remplacer mon autoradio / écran</h3>
+            <p>Installez un nouvel écran tactile Android avec CarPlay &amp; Android Auto intégrés, plus grand et plus complet.</p>
+            <span class="compat-badge compat-yes">✅ Compatible avec tous les véhicules</span>
+          </button>
+        </div>
+
+        <p class="compat-note" id="compat-note" hidden></p>
+      </div>
+    </section>
+
+    <!-- ETAPE 2 : PRODUITS -->
+    <section class="products-section" id="products-section" hidden>
+      <div class="container">
+        <div class="products-header">
+          <h2 class="section-title" id="products-title">Nos recommandations</h2>
+          <div class="mode-toggle" id="mode-toggle">
+            <button type="button" class="toggle-btn" data-mode="dongle">🔌 Boîtier sans fil</button>
+            <button type="button" class="toggle-btn" data-mode="headunit">📺 Nouvel écran</button>
+          </div>
+        </div>
+
+        <div class="podium" id="podium"></div>
+
+        <div class="products-toolbar">
+          <label for="sort-select">Trier par</label>
+          <select id="sort-select">
+            <option value="featured">Recommandé</option>
+            <option value="price-asc">Prix croissant</option>
+            <option value="price-desc">Prix décroissant</option>
+            <option value="rating">Meilleures notes</option>
+            <option value="delivery">Livraison la plus rapide</option>
+          </select>
+        </div>
+
+        <div class="product-grid" id="product-grid"></div>
+      </div>
+    </section>
+
+    <!-- CAS D'ERREUR (paramètres manquants) -->
+    <section class="error-section" id="error-section" hidden>
+      <div class="container" style="text-align:center;">
+        <h1>Aucun véhicule sélectionné</h1>
+        <p style="color: var(--color-text-light); margin: 16px 0 24px;">
+          Merci de choisir votre marque, modèle et année depuis la page d'accueil.
         </p>
-        <a href="index.html" class="btn-primary" style="display:inline-block; text-decoration:none; margin-top: 24px;">
+        <a href="index.html" class="btn-primary" style="display:inline-block; text-decoration:none;">
           Retour à l'accueil
         </a>
       </div>
@@ -37,20 +103,13 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; <span id="year"></span> PlayAuto. Comparateur d'autoradios & CarPlay pour tous les véhicules.</p>
+      <p>&copy; <span id="year"></span> PlayAuto. Comparateur d'autoradios &amp; CarPlay pour tous les véhicules.</p>
     </div>
   </footer>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-    const params = new URLSearchParams(window.location.search);
-    const brand = params.get("brand");
-    const model = params.get("model");
-    const year = params.get("year");
-    if (brand && model && year) {
-      document.getElementById("recap").textContent =
-        `Véhicule sélectionné : ${brand} ${model} (${year})`;
-    }
-  </script>
+  <script src="js/data.js"></script>
+  <script src="js/compat.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/results.js"></script>
 </body>
 </html>
