@@ -1,11 +1,15 @@
 /**
- * Photo du tableau de bord : cherche une image fournie par le site pour ce
- * véhicule avant d'afficher le placeholder. Convention de nommage dans
- * images/dashboards/ : "{marque}-{modele}-{annee}.jpg" (photo précise pour
- * cette année) puis, à défaut, "{marque}-{modele}.jpg" (photo générique pour
- * le modèle, valable tant que la planche de bord n'a pas changé). Il suffit
- * de déposer un fichier respectant ce nommage pour qu'il apparaisse
- * automatiquement, sans modification de code.
+ * Photo du tableau de bord : cherche une image fournie pour ce véhicule
+ * avant d'afficher le placeholder, dans cet ordre :
+ *   1. Le champ `image` de la phase sélectionnée (ou du modèle si celui-ci
+ *      n'a pas de phases), quand VEHICLES_DB en définit un — PROVISOIRE :
+ *      utilisé actuellement pour tester l'affichage avec des liens externes
+ *      temporaires, à remplacer par de vraies photos hébergées sur le site.
+ *   2. La convention de nommage locale dans images/dashboards/ :
+ *      "{marque}-{modele}-{annee}.jpg" (photo précise pour cette année),
+ *      puis "{marque}-{modele}.jpg" (photo générique pour le modèle). Il
+ *      suffit de déposer un fichier respectant ce nommage — ou de renseigner
+ *      le champ `image` — pour qu'il apparaisse automatiquement.
  */
 function slugify(str) {
   return str
@@ -16,15 +20,21 @@ function slugify(str) {
     .replace(/^-+|-+$/g, "");
 }
 
-function loadDashboardPhoto(brand, model, year) {
+function loadDashboardPhoto(brand, model, year, phase) {
   const imgEl = document.getElementById("dashboard-photo-img");
   const placeholderEl = document.getElementById("dashboard-photo-placeholder");
   const brandSlug = slugify(brand);
   const modelSlug = slugify(model);
-  const candidates = [
-    `images/dashboards/${brandSlug}-${modelSlug}-${year}.jpg`,
-    `images/dashboards/${brandSlug}-${modelSlug}.jpg`
-  ];
+
+  const entry = (VEHICLES_DB[brand] || []).find((m) => m.model === model);
+  const explicitImage = (phase && phase.image) || (entry && !phase && entry.image);
+
+  const candidates = explicitImage
+    ? [explicitImage]
+    : [
+        `images/dashboards/${brandSlug}-${modelSlug}-${year}.jpg`,
+        `images/dashboards/${brandSlug}-${modelSlug}.jpg`
+      ];
 
   function tryCandidate(index) {
     if (index >= candidates.length) {
@@ -94,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("recap-vehicle").textContent = phase
     ? `${brand} ${model} — ${periodLabel}`
     : `${brand} ${model} (${year})`;
-  loadDashboardPhoto(brand, model, year);
+  loadDashboardPhoto(brand, model, year, phase);
 
   const compat = phase
     ? getFactoryCarplayCompatibility(brand, model, phase.from, phase.to)
