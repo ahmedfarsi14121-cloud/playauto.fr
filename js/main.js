@@ -63,11 +63,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const entry = (VEHICLES_DB[brand] || []).find((m) => m.model === model);
     if (!entry) return;
 
-    for (let y = entry.to; y >= entry.from; y--) {
-      const opt = document.createElement("option");
-      opt.value = y;
-      opt.textContent = y;
-      yearSelect.appendChild(opt);
+    if (entry.phases) {
+      // Une option par génération plutôt qu'année par année : le tableau de
+      // bord et l'emplacement de l'autoradio ne changent en général qu'au
+      // changement de génération.
+      entry.phases
+        .slice()
+        .sort((a, b) => b.from - a.from)
+        .forEach((phase) => {
+          const opt = document.createElement("option");
+          opt.value = phase.from;
+          opt.textContent = `${phase.from}-${phase.to} (${phase.label})`;
+          yearSelect.appendChild(opt);
+        });
+    } else {
+      for (let y = entry.to; y >= entry.from; y--) {
+        const opt = document.createElement("option");
+        opt.value = y;
+        opt.textContent = y;
+        yearSelect.appendChild(opt);
+      }
     }
 
     yearSelect.disabled = false;

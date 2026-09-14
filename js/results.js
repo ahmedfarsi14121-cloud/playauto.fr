@@ -88,10 +88,17 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  document.getElementById("recap-vehicle").textContent = `${brand} ${model} (${year})`;
+  const phase = findVehiclePhase(brand, model, year);
+  const periodLabel = phase ? `${phase.from}-${phase.to} (${phase.label})` : String(year);
+
+  document.getElementById("recap-vehicle").textContent = phase
+    ? `${brand} ${model} — ${periodLabel}`
+    : `${brand} ${model} (${year})`;
   loadDashboardPhoto(brand, model, year);
 
-  const compat = getFactoryCarplayCompatibility(brand, model, year);
+  const compat = phase
+    ? getFactoryCarplayCompatibility(brand, model, phase.from, phase.to)
+    : getFactoryCarplayCompatibility(brand, model, year);
 
   const dongleCard = document.getElementById("choice-dongle");
   const compatBadge = document.getElementById("compat-badge");
@@ -108,8 +115,17 @@ document.addEventListener("DOMContentLoaded", () => {
     compatNote.hidden = false;
     compatNote.className = "compat-note compat-note--no";
     compatNote.textContent = compat.since
-      ? `L'Apple CarPlay / Android Auto de série n'existait pas encore sur le ${model} en ${year} (disponible à partir de ${compat.since} sur ce modèle). Le remplacement d'écran est la solution recommandée.`
+      ? `L'Apple CarPlay / Android Auto de série n'existait pas encore sur le ${model} (${periodLabel}) — disponible à partir de ${compat.since} sur ce modèle. Le remplacement d'écran est la solution recommandée.`
       : `L'Apple CarPlay / Android Auto de série n'a jamais été proposé sur le ${model}. Le remplacement d'écran est la solution recommandée.`;
+  } else if (compat.status === "partial") {
+    compatBadge.textContent = "⚠️ Compatible en partie sur cette génération";
+    compatBadge.className = "compat-badge compat-unknown";
+    compatNote.hidden = false;
+    compatNote.className = "compat-note compat-note--unknown";
+    compatNote.textContent =
+      `Sur cette génération (${periodLabel}), l'Apple CarPlay / Android Auto de série n'est apparu qu'à partir de ${compat.since} ` +
+      `(restylage ou mise à jour en cours de génération). Vérifiez la date de première mise en circulation exacte de votre véhicule ` +
+      `avant de commander un boîtier sans fil, ou optez directement pour le remplacement d'écran.`;
   } else {
     compatBadge.textContent = "⚠️ Compatibilité à vérifier";
     compatBadge.className = "compat-badge compat-unknown";
