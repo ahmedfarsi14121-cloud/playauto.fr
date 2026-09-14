@@ -30,25 +30,38 @@
             <span class="recap-label">Votre véhicule</span>
             <h1 class="recap-vehicle" id="recap-vehicle">—</h1>
           </div>
-
-          <div class="recap-actions">
-            <form id="vehicle-form" class="inline-vehicle-form" autocomplete="off" hidden>
-              <select id="brand-select" required>
-                <option value="" disabled selected>Marque</option>
-              </select>
-              <select id="model-select" required disabled>
-                <option value="" disabled selected>Modèle</option>
-              </select>
-              <select id="year-select" required disabled>
-                <option value="" disabled selected>Année</option>
-              </select>
-              <button type="submit" class="btn-primary btn-sm" id="submit-btn" disabled>Valider</button>
-              <p class="form-hint" id="form-hint"></p>
-            </form>
-
-            <button type="button" class="btn-secondary" id="change-vehicle-btn">Changer de véhicule</button>
-          </div>
+          <button type="button" class="btn-secondary" id="change-vehicle-btn">Changer de véhicule</button>
         </div>
+
+        <form id="vehicle-form" class="change-vehicle-panel" autocomplete="off" hidden>
+          <div class="change-vehicle-grid">
+            <div class="field">
+              <label for="brand-select">Marque</label>
+              <select id="brand-select" required>
+                <option value="" disabled selected>Choisissez une marque</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="model-select">Modèle</label>
+              <select id="model-select" required disabled>
+                <option value="" disabled selected>Choisissez d'abord une marque</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="year-select">Année</label>
+              <select id="year-select" required disabled>
+                <option value="" disabled selected>Choisissez d'abord un modèle</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" id="submit-btn" disabled>
+            Voir les solutions compatibles
+          </button>
+          <p class="form-hint" id="form-hint"></p>
+        </form>
 
         <div class="dashboard-photo" id="dashboard-photo">
           <img id="dashboard-photo-img" alt="Tableau de bord du véhicule sélectionné" hidden>
